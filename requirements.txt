@@ -1,4 +1,6 @@
 uvicorn
 fastapi
+python-dotenv
 requests
+infisical
 python-multipart
