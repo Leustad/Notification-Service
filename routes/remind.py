@@ -4,8 +4,8 @@ from fastapi import APIRouter
 
 from routes.remind_services import find_releases
 from routes.utils import get_release_data
-from services.infisical import GIST_URL
-from services.ntfy import notify
+from clients.infisical import GIST_URL
+from clients.ntfy import notify
 
 remind_router = APIRouter(prefix='/remind', tags=['Reminder'])
 

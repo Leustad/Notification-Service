@@ -16,6 +16,7 @@ parser.add_argument('-t', '--today', type=bool, help='Checks for today\'s releas
 
 args = parser.parse_args()
 
+# TODO: Change this HTTP Req to find_releases() func call
 requests.get(
     url=f'{host_domain}/remind?date={args.date}'
 )

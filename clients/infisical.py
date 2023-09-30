@@ -5,10 +5,17 @@ from infisical import InfisicalClient
 from config import INFISICAL_TOKEN
 
 
-client = InfisicalClient(
-    site_url='https://infisical.snowy.land',
+class Infisical(InfisicalClient):
+    def __init__(self, token, site_url):
+        self.token = token
+        self.site_url = site_url
+
+        super().__init__(self.token, self.site_url)
+
+
+client = Infisical(
     token=INFISICAL_TOKEN,
-    # site_url='http://192.168.1.247:8070'
+    site_url='https://infisical.snowy.land'
 )
 
 try:
