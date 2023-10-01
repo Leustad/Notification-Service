@@ -1,8 +1,9 @@
 from ast import literal_eval
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
-from routes.remind_services import find_releases
+from routes.pydantic_models.models import Remind
+from routes.remind_services import find_releases, make_filter
 from routes.utils import get_release_data
 from clients.infisical import GIST_URL
 from clients.ntfy import notify
@@ -11,9 +12,14 @@ remind_router = APIRouter(prefix='/remind', tags=['Reminder'])
 
 
 @remind_router.get('')
-def remind(today: bool = True, list_all: bool = False, date: str = None):
+def remind(params: Remind = Depends(), send_notification: bool = False):
     data = literal_eval(get_release_data(url=GIST_URL))
-    filtered_data = find_releases(data=data, date=date, list_all=list_all, today=today)
+    filters = make_filter(params)
+    filtered_data = find_releases(
+        data=data,
+        filters=filters
+    )
 
-    notify(filtered_data)
+    if send_notification:
+        notify(filtered_data)
     return filtered_data
