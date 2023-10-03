@@ -1,6 +1,5 @@
-import os
+from dotenv import dotenv_values
 
-from dotenv import load_dotenv
 
-load_dotenv()
-INFISICAL_TOKEN = os.getenv('INFISICAL_TOKEN')
+def setup_config():
+    return dotenv_values('.env')

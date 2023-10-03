@@ -1,8 +1,15 @@
 import argparse
+import os
+import sys
 
 import requests
 
-host_domain = 'http://127.0.0.1:8001'
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
+from clients.ntfy import notify
+
+host_domain = 'http://127.0.0.1:33510'
 
 parser = argparse.ArgumentParser(
     prog='Notify',
@@ -17,6 +24,10 @@ parser.add_argument('-t', '--today', type=bool, help='Checks for today\'s releas
 args = parser.parse_args()
 
 # TODO: Change this HTTP Req to find_releases() func call
-requests.get(
+r = requests.get(
     url=f'{host_domain}/remind?date={args.date}'
 )
+
+if r.json():
+    notify(r.json())
+    print(r.json())

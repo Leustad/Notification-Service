@@ -11,7 +11,7 @@ def make_filter(params):
     if any([params.name, params.date]):
         return{
             'name': params.name,
-            'date:': params.date
+            'date': params.date
         }
 
 

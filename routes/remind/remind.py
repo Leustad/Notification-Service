@@ -3,7 +3,7 @@ from ast import literal_eval
 from fastapi import APIRouter, Depends
 
 from routes.pydantic_models.models import Remind
-from routes.remind_services import find_releases, make_filter
+from routes.remind.remind_services import find_releases, make_filter
 from routes.utils import get_release_data
 from clients.infisical import GIST_URL
 from clients.ntfy import notify
